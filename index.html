@@ -1,542 +1,139 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0f172a">
-  <title>朝礼マネジメント</title>
-  <style>
-    :root{
-      --bg:#f3f5f7;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;
-      --primary:#2563eb;--primary2:#1d4ed8;--good:#059669;--bad:#dc2626;--warn:#d97706;
-      --shadow:0 8px 24px rgba(15,23,42,.07)
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:var(--bg);color:var(--text)}
-    button,input,select,textarea{font:inherit}
-    button{cursor:pointer}
-    .app{max-width:980px;margin:0 auto;padding:14px}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-    .title{font-size:22px;font-weight:800}
-    .sub{font-size:12px;color:var(--muted)}
-    .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin-bottom:14px}
-    .tab{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px;font-weight:700}
-    .tab.active{background:var(--text);color:#fff;border-color:var(--text)}
-    .panel{display:none}.panel.active{display:block}
-    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .metric,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
-    .metric{padding:14px}
-    .metric .label{font-size:12px;color:var(--muted)}
-    .metric .value{font-size:25px;font-weight:800;margin-top:4px}
-    .card{padding:16px;margin-top:12px}
-    .section-title{font-size:17px;font-weight:800;margin:0 0 4px}
-    .help{font-size:13px;color:var(--muted);margin:0 0 14px}
-    .formgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    label{display:block;font-size:13px;font-weight:700}
-    input,select,textarea{width:100%;border:1px solid #cfd4dc;border-radius:12px;padding:11px 12px;background:#fff;color:var(--text);margin-top:6px}
-    textarea{resize:vertical;min-height:78px}
-    .check-card{border:1px solid var(--line);border-radius:15px;padding:13px;margin-top:10px}
-    .check-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .check-title{font-weight:800}
-    .radio-group{display:flex;gap:8px;flex-wrap:wrap}
-    .choice{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;font-size:13px;font-weight:700}
-    .quick{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
-    .chip{border:1px solid #cfd4dc;background:#fff;border-radius:999px;padding:8px 10px;font-size:12px}
-    .chip:hover{border-color:var(--primary);color:var(--primary)}
-    .primary{border:0;background:var(--primary);color:#fff;border-radius:13px;padding:12px 16px;font-weight:800}
-    .primary:hover{background:var(--primary2)}
-    .secondary{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 14px;font-weight:700}
-    .danger{border:1px solid #fecaca;background:#fff;color:var(--bad);border-radius:12px;padding:9px 12px;font-weight:700}
-    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .notice{border-left:4px solid var(--primary);background:#eff6ff;padding:13px;border-radius:12px;margin-top:12px}
-    .notice.bad{border-left-color:var(--bad);background:#fef2f2}
-    .badge{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800;background:#eef2ff;color:#3730a3}
-    .badge.good{background:#ecfdf5;color:#047857}
-    .badge.bad{background:#fef2f2;color:#b91c1c}
-    .badge.warn{background:#fff7ed;color:#c2410c}
-    .store-row,.history-row{border:1px solid var(--line);border-radius:14px;padding:13px;margin-top:10px;background:#fff}
-    .rowtop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-    .small{font-size:12px;color:var(--muted)}
-    .strong{font-weight:800}
-    .empty{color:var(--muted);padding:18px 0;text-align:center}
-    .template-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-    .template-item{display:flex;align-items:center;gap:5px;border:1px solid var(--line);padding:7px 8px;border-radius:999px;background:#fff;font-size:12px}
-    .x{border:0;background:transparent;color:var(--bad);font-weight:900;padding:0 2px}
-    .toolbar{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
-    @media(max-width:720px){
-      .grid4{grid-template-columns:repeat(2,1fr)}
-      .formgrid{grid-template-columns:1fr}
-      .app{padding:10px}
-      .title{font-size:19px}
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  <title>首都城南エリア OODA育成ボード</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div class="app">
-  <div class="top">
+  <header class="app-header">
     <div>
-      <div class="title">朝礼マネジメント</div>
-      <div class="sub">店長朝礼・顧客動態・行動指針を可視化</div>
+      <h1>首都城南エリア OODA育成ボード</h1>
+      <p>6店舗の実績・OODA・育成・アイデアを週間／月間で可視化</p>
     </div>
-    <span class="badge" id="clockBadge">--:--</span>
-  </div>
+    <button id="exportBtn" class="btn secondary">CSV出力</button>
+  </header>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="input">朝礼入力</button>
-    <button class="tab" data-tab="dashboard">店舗一覧</button>
-    <button class="tab" data-tab="history">履歴</button>
-    <button class="tab" data-tab="templates">テンプレ管理</button>
-  </div>
+  <nav class="tabs" aria-label="画面切替">
+    <button class="tab active" data-view="ranking">週間ランキング</button>
+    <button class="tab" data-view="store">店舗詳細</button>
+    <button class="tab" data-view="ideas">アイデア共有</button>
+    <button class="tab" data-view="monthly">月次振り返り</button>
+  </nav>
 
-  <section class="panel active" id="panel-input">
-    <div class="grid4">
-      <div class="metric"><div class="label">入力進捗</div><div class="value" id="progressMetric">0%</div></div>
-      <div class="metric"><div class="label">良い</div><div class="value" id="goodMetric">0</div></div>
-      <div class="metric"><div class="label">改善</div><div class="value" id="badMetric">0</div></div>
-      <div class="metric"><div class="label">状態</div><div style="margin-top:7px" id="statusMetric"><span class="badge warn">未入力</span></div></div>
-    </div>
-
-    <div class="card">
-      <div class="formgrid">
-        <label>店舗名
-          <input id="store" placeholder="例：大森店">
-        </label>
-        <label>店長名
-          <input id="manager" placeholder="例：山田">
-        </label>
-        <label>日付
-          <input id="date" type="date">
-        </label>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="section-title">朝礼チェック</h2>
-      <p class="help">各項目を「良い／悪い」で評価。テンプレートをタップするとコメントへ追加されます。</p>
-      <div id="checks"></div>
-    </div>
-
-    <div class="card">
-      <h2 class="section-title">顧客動態・行動</h2>
-      <p class="help">よくある仮説・行動をワンタップ入力。自由入力もできます。</p>
-
-      <div style="margin-top:14px">
-        <div class="strong">顧客動態の仮説</div>
-        <div class="quick" id="hypothesisQuick"></div>
-        <textarea id="hypothesis" placeholder="例：気温上昇により午後からエアコン目的客が増加すると予想"></textarea>
-      </div>
-
-      <div style="margin-top:18px">
-        <div class="strong">前日の行動・振り返り</div>
-        <div class="quick" id="previousQuick"></div>
-        <textarea id="previous" placeholder="例：入口で要件確認を行い、接客待ちを短縮した"></textarea>
-      </div>
-
-      <div style="margin-top:18px">
-        <div class="strong">本日の行動指針</div>
-        <div class="quick" id="todayQuick"></div>
-        <textarea id="today" placeholder="例：ピーク前に役割分担を明確にし、3分以上待たせない"></textarea>
-      </div>
-    </div>
-
-    <div class="notice" id="notice"><strong>チェック結果：</strong><span id="noticeText">入力を開始してください。</span></div>
-
-    <div class="actions">
-      <button class="primary" id="save">今日の朝礼を登録</button>
-      <button class="secondary" id="clear">入力をクリア</button>
-    </div>
-    <div class="small" id="saveMessage" style="margin-top:8px"></div>
-  </section>
-
-  <section class="panel" id="panel-dashboard">
-    <div class="grid4">
-      <div class="metric"><div class="label">登録店舗</div><div class="value" id="dashStores">0</div></div>
-      <div class="metric"><div class="label">本日実施</div><div class="value" id="dashDone">0</div></div>
-      <div class="metric"><div class="label">改善あり</div><div class="value" id="dashBad">0</div></div>
-      <div class="metric"><div class="label">平均良好率</div><div class="value" id="dashRate">0%</div></div>
-    </div>
-    <div class="card">
+  <main>
+    <section id="ranking" class="view active">
       <div class="toolbar">
-        <div>
-          <h2 class="section-title">本日の店舗状況</h2>
-          <p class="help" style="margin-bottom:0">この端末に保存されたデータから表示します。</p>
-        </div>
-        <button class="secondary" id="refreshDash">更新</button>
+        <label>対象週 <input id="weekInput" type="week" /></label>
+        <button id="seedWeekBtn" class="btn secondary">サンプル初期化</button>
       </div>
-      <div id="dashboardList"></div>
-    </div>
-  </section>
+      <div class="cards" id="summaryCards"></div>
+      <div class="panel">
+        <div class="panel-title-row">
+          <h2>週間総合ランキング</h2>
+          <small>実績50点 + OODA20点 + 育成10点 + アイデア10点 + コミット10点</small>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>順位</th><th>店舗</th><th>前週</th><th>仮想受注</th><th>計画比</th><th>OODA</th><th>育成</th><th>アイデア</th><th>コミット</th><th>総合</th></tr>
+            </thead>
+            <tbody id="rankingBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <h2>今週の注目</h2>
+        <div id="weeklyHighlights" class="highlight-grid"></div>
+      </div>
+    </section>
 
-  <section class="panel" id="panel-history">
-    <div class="card">
+    <section id="store" class="view">
       <div class="toolbar">
-        <div>
-          <h2 class="section-title">朝礼履歴</h2>
-          <p class="help" style="margin-bottom:0">登録した朝礼を新しい順に表示します。</p>
-        </div>
-        <button class="secondary" id="exportBtn">JSON書き出し</button>
-      </div>
-      <div id="historyList"></div>
-    </div>
-  </section>
-
-  <section class="panel" id="panel-templates">
-    <div class="card">
-      <h2 class="section-title">テンプレート追加</h2>
-      <p class="help">追加したテンプレートはこの端末に保存され、次回も利用できます。</p>
-      <div class="formgrid" style="grid-template-columns:1fr 2fr">
-        <label>追加先
-          <select id="templateTarget">
-            <option value="hypothesis">顧客動態の仮説</option>
-            <option value="previous">前日の行動</option>
-            <option value="today">本日の行動指針</option>
-            <option value="energy.good">元気・良い</option>
-            <option value="energy.bad">元気・悪い</option>
-            <option value="shouwa.good">昌和・良い</option>
-            <option value="shouwa.bad">昌和・悪い</option>
-            <option value="lineup.good">整列・良い</option>
-            <option value="lineup.bad">整列・悪い</option>
-            <option value="appearance.good">身だしなみ・良い</option>
-            <option value="appearance.bad">身だしなみ・悪い</option>
-          </select>
+        <label>店舗
+          <select id="storeSelect"></select>
         </label>
-        <label>追加するテンプレート
-          <input id="templateText" placeholder="例：夕方から来店増加を予想">
-        </label>
+        <label>対象週 <input id="storeWeekInput" type="week" /></label>
       </div>
-      <div class="actions">
-        <button class="primary" id="addTemplate">テンプレート追加</button>
-        <button class="secondary" id="resetTemplates">初期テンプレートへ戻す</button>
-      </div>
-      <div class="small" id="templateMessage" style="margin-top:8px"></div>
-    </div>
-
-    <div class="card">
-      <h2 class="section-title">登録テンプレート一覧</h2>
-      <div id="templateList"></div>
-    </div>
-  </section>
-</div>
-
-<script>
-const STORE_KEY='morning_manager_records_v1';
-const TEMPLATE_KEY='morning_manager_templates_v1';
-
-const DEFAULT_TEMPLATES={
-  hypothesis:[
-    '気温上昇により季節商品の来店増を予想',
-    '雨天のため来店客数は弱めと予想',
-    '休日のためファミリー層の増加を予想',
-    '平日のため夕方以降の来店増を予想',
-    'セール・キャンペーン目的の来店増を予想',
-    '前年より客数増加を想定しピーク対応が必要',
-    'エアコン需要が高まると予想',
-    '大型家電の比較客増を予想',
-    'ピーク時に接客待ち発生の可能性あり',
-    '故障・買い替え相談が増えると予想'
-  ],
-  previous:[
-    '入口で要件確認を実施した',
-    '待ち客への一次案内を実施した',
-    '売場の役割分担を明確にした',
-    '重点商品の声掛けを強化した',
-    '接客待ち時間の短縮を意識した',
-    'スタッフへの途中進捗確認を行った'
-  ],
-  today:[
-    'ピーク前に役割分担を明確にする',
-    '3分以上待たせない声掛けを徹底する',
-    '入口で要件確認し適切な担当へつなぐ',
-    '重点カテゴリの声掛けを強化する',
-    '接客中でも待ち客への一声を徹底する',
-    '午前・午後で顧客動態を再確認する',
-    '予想と実績のズレを途中で修正する'
-  ],
-  checks:{
-    energy:{label:'元気',good:['声量が良い','挨拶が元気','反応が良い','全員参加できている'],bad:['声が小さい','反応が薄い','挨拶が弱い','一部参加できていない']},
-    shouwa:{label:'昌和',good:['唱和が揃っている','声量が十分','全員実施できている','テンポが良い'],bad:['声が揃っていない','声量が不足','一部未実施','やり直しが必要']},
-    lineup:{label:'整列',good:['整列できている','姿勢が良い','間隔が適切','開始がスムーズ'],bad:['列が乱れている','姿勢に課題','間隔が不揃い','集合が遅い']},
-    appearance:{label:'身だしなみ',good:['問題なし','名札OK','制服OK','清潔感あり'],bad:['名札不備','制服不備','髪型要確認','清潔感要改善']}
-  }
-};
-
-function clone(v){return JSON.parse(JSON.stringify(v))}
-function getTemplates(){
-  try{return JSON.parse(localStorage.getItem(TEMPLATE_KEY))||clone(DEFAULT_TEMPLATES)}
-  catch(e){return clone(DEFAULT_TEMPLATES)}
-}
-function setTemplates(v){localStorage.setItem(TEMPLATE_KEY,JSON.stringify(v))}
-function getRecords(){
-  try{return JSON.parse(localStorage.getItem(STORE_KEY))||[]}
-  catch(e){return []}
-}
-function setRecords(v){localStorage.setItem(STORE_KEY,JSON.stringify(v))}
-
-let templates=getTemplates();
-
-function todayStr(){
-  const d=new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
-}
-document.getElementById('date').value=todayStr();
-
-function clock(){
-  const d=new Date();
-  document.getElementById('clockBadge').textContent=d.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-}
-clock();setInterval(clock,30000);
-
-document.querySelectorAll('.tab').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
-    if(btn.dataset.tab==='dashboard') renderDashboard();
-    if(btn.dataset.tab==='history') renderHistory();
-    if(btn.dataset.tab==='templates') renderTemplateList();
-  });
-});
-
-function selected(name){
-  const el=document.querySelector(`input[name="${name}"]:checked`);
-  return el?el.value:'';
-}
-function appendText(id,text){
-  const el=document.getElementById(id);
-  const cur=el.value.trim();
-  if(!cur) el.value=text;
-  else if(!cur.includes(text)) el.value=cur+'\\n'+text;
-  updateProgress();
-}
-function quickButton(text,target){
-  const b=document.createElement('button');
-  b.type='button';b.className='chip';b.textContent=text;
-  b.addEventListener('click',()=>appendText(target,text));
-  return b;
-}
-
-function renderChecks(){
-  const area=document.getElementById('checks');area.innerHTML='';
-  Object.entries(templates.checks).forEach(([key,d])=>{
-    const div=document.createElement('div');div.className='check-card';
-    div.innerHTML=`
-      <div class="check-head">
-        <div class="check-title">${d.label}</div>
-        <div class="radio-group">
-          <label class="choice"><input type="radio" name="${key}" value="良い"> 良い</label>
-          <label class="choice"><input type="radio" name="${key}" value="悪い"> 悪い</label>
+      <div class="panel form-panel">
+        <div class="form-grid two">
+          <label>店舗総仮想受注（円）<input id="virtualOrders" type="number" min="0" step="1000" /></label>
+          <label>計画比（%）<input id="planRatio" type="number" min="0" step="0.1" /></label>
+          <label>前週順位<input id="prevRank" type="number" min="1" max="6" /></label>
+          <label>今週のテーマ<input id="weeklyTheme" type="text" /></label>
         </div>
+
+        <h3>OODA・育成チェック</h3>
+        <div class="score-grid">
+          <label>Observe / 5<input id="observeScore" type="number" min="0" max="5" /></label>
+          <label>Orient / 5<input id="orientScore" type="number" min="0" max="5" /></label>
+          <label>Decide / 5<input id="decideScore" type="number" min="0" max="5" /></label>
+          <label>Act / 5<input id="actScore" type="number" min="0" max="5" /></label>
+          <label>育成 / 10<input id="trainingScore" type="number" min="0" max="10" /></label>
+          <label>アイデア / 10<input id="ideaScore" type="number" min="0" max="10" /></label>
+          <label>コミット / 10<input id="commitScore" type="number" min="0" max="10" /></label>
+        </div>
+
+        <div class="form-grid two">
+          <label>先週のACT<textarea id="lastAct" rows="3"></textarea></label>
+          <label>実績・結果<textarea id="resultText" rows="3"></textarea></label>
+          <label>良かった部分<textarea id="goodText" rows="3"></textarea></label>
+          <label>課題だった部分<textarea id="issueText" rows="3"></textarea></label>
+          <label>これから育成する部分<textarea id="trainingText" rows="3"></textarea></label>
+          <label>今週のコミット<textarea id="commitText" rows="3"></textarea></label>
+          <label>今週のアイデア<textarea id="ideaText" rows="3"></textarea></label>
+          <label>実際に取り組んだこと<textarea id="actionTaken" rows="3"></textarea></label>
+          <label>アイデアの結果<textarea id="ideaResult" rows="3"></textarea></label>
+          <label>AMコメント<textarea id="amComment" rows="3"></textarea></label>
+        </div>
+        <div class="action-row">
+          <button id="saveStoreBtn" class="btn primary">保存</button>
+          <button id="copyDailyBtn" class="btn secondary">日報用まとめを作成</button>
+        </div>
+        <div id="saveMessage" class="message" aria-live="polite"></div>
+        <textarea id="dailyOutput" class="output" rows="5" readonly placeholder="ここに日報用まとめが表示されます"></textarea>
       </div>
-      <div class="quick" id="${key}Quick"></div>
-      <textarea id="${key}Comment" placeholder="テンプレートを選択、または自由入力"></textarea>`;
-    area.appendChild(div);
-  });
-  document.querySelectorAll('#checks input[type=radio]').forEach(r=>r.addEventListener('change',()=>{
-    renderCheckQuick(r.name);updateProgress();
-  }));
-  document.querySelectorAll('#checks textarea').forEach(t=>t.addEventListener('input',updateProgress));
-}
-function renderCheckQuick(key){
-  const area=document.getElementById(key+'Quick');area.innerHTML='';
-  const val=selected(key);
-  if(!val) return;
-  const list=val==='良い'?templates.checks[key].good:templates.checks[key].bad;
-  list.forEach(t=>area.appendChild(quickButton(t,key+'Comment')));
-}
-function renderActionTemplates(){
-  [['hypothesis','hypothesisQuick'],['previous','previousQuick'],['today','todayQuick']].forEach(([key,id])=>{
-    const area=document.getElementById(id);area.innerHTML='';
-    templates[key].forEach(t=>area.appendChild(quickButton(t,key)));
-  });
-}
-renderChecks();renderActionTemplates();
-['hypothesis','previous','today'].forEach(id=>document.getElementById(id).addEventListener('input',updateProgress));
+    </section>
 
-function updateProgress(){
-  const keys=Object.keys(templates.checks);
-  const done=keys.filter(k=>selected(k)).length;
-  const good=keys.filter(k=>selected(k)==='良い').length;
-  const bad=keys.filter(k=>selected(k)==='悪い').length;
-  const actionCount=['hypothesis','previous','today'].filter(id=>document.getElementById(id).value.trim()).length;
-  const pct=Math.round((done+actionCount)/7*100);
-  document.getElementById('progressMetric').textContent=pct+'%';
-  document.getElementById('goodMetric').textContent=good;
-  document.getElementById('badMetric').textContent=bad;
-  document.getElementById('statusMetric').innerHTML=pct===100?'<span class="badge good">完了</span>':pct>0?'<span class="badge warn">入力中</span>':'<span class="badge warn">未入力</span>';
-
-  const missing=[];
-  if(done<4) missing.push(`朝礼評価 残り${4-done}項目`);
-  if(actionCount<3) missing.push(`行動入力 残り${3-actionCount}項目`);
-  if(bad>0) missing.push(`改善項目 ${bad}件`);
-  const n=document.getElementById('notice');
-  n.classList.toggle('bad',bad>0);
-  document.getElementById('noticeText').textContent=missing.length?missing.join('・'):'すべて入力済み。今日の行動指針まで確認できています。';
-}
-updateProgress();
-
-document.getElementById('save').addEventListener('click',()=>{
-  const store=document.getElementById('store').value.trim();
-  const manager=document.getElementById('manager').value.trim();
-  const date=document.getElementById('date').value;
-  const keys=Object.keys(templates.checks);
-  if(!store||!manager||!date){
-    document.getElementById('saveMessage').textContent='店舗名・店長名・日付を入力してください。';return;
-  }
-  const missing=keys.filter(k=>!selected(k));
-  const actions=['hypothesis','previous','today'].filter(id=>!document.getElementById(id).value.trim());
-  if(missing.length||actions.length){
-    document.getElementById('saveMessage').textContent='未入力項目があります。朝礼4項目と行動3項目を入力してください。';return;
-  }
-  const badNoComment=keys.filter(k=>selected(k)==='悪い'&&!document.getElementById(k+'Comment').value.trim());
-  if(badNoComment.length){
-    document.getElementById('saveMessage').textContent='「悪い」の項目には改善コメントを入力してください。';return;
-  }
-  const checks={};
-  keys.forEach(k=>checks[k]={rating:selected(k),comment:document.getElementById(k+'Comment').value.trim()});
-  const record={
-    id:Date.now(),createdAt:new Date().toISOString(),date,store,manager,checks,
-    hypothesis:document.getElementById('hypothesis').value.trim(),
-    previous:document.getElementById('previous').value.trim(),
-    today:document.getElementById('today').value.trim()
-  };
-  const records=getRecords();
-  records.push(record);setRecords(records);
-  document.getElementById('saveMessage').textContent='登録しました。店舗一覧・履歴に反映されます。';
-  renderDashboard();renderHistory();
-});
-
-document.getElementById('clear').addEventListener('click',()=>{
-  document.querySelectorAll('#checks input[type=radio]').forEach(x=>x.checked=false);
-  document.querySelectorAll('#checks textarea').forEach(x=>x.value='');
-  ['hypothesis','previous','today'].forEach(id=>document.getElementById(id).value='');
-  Object.keys(templates.checks).forEach(k=>document.getElementById(k+'Quick').innerHTML='');
-  document.getElementById('saveMessage').textContent='';
-  updateProgress();
-});
-
-function renderDashboard(){
-  const records=getRecords();
-  const today=document.getElementById('date').value||todayStr();
-  const todayRecords=records.filter(r=>r.date===today);
-  const latestByStore={};
-  todayRecords.forEach(r=>latestByStore[r.store]=r);
-  const list=Object.values(latestByStore).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
-  const badCount=list.filter(r=>Object.values(r.checks).some(c=>c.rating==='悪い')).length;
-  let good=0,total=0;
-  list.forEach(r=>Object.values(r.checks).forEach(c=>{total++;if(c.rating==='良い')good++}));
-  document.getElementById('dashStores').textContent=list.length;
-  document.getElementById('dashDone').textContent=list.length;
-  document.getElementById('dashBad').textContent=badCount;
-  document.getElementById('dashRate').textContent=total?Math.round(good/total*100)+'%':'0%';
-  const area=document.getElementById('dashboardList');area.innerHTML='';
-  if(!list.length){area.innerHTML='<div class="empty">本日の登録はまだありません。</div>';return}
-  list.forEach(r=>{
-    const bads=Object.entries(r.checks).filter(([k,v])=>v.rating==='悪い');
-    const row=document.createElement('div');row.className='store-row';
-    row.innerHTML=`
-      <div class="rowtop">
-        <div><div class="strong">${escapeHtml(r.store)}</div><div class="small">${escapeHtml(r.manager)} ・ ${new Date(r.createdAt).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}登録</div></div>
-        <span class="badge ${bads.length?'bad':'good'}">${bads.length?'改善あり':'良好'}</span>
+    <section id="ideas" class="view">
+      <div class="toolbar">
+        <label>対象週 <input id="ideaWeekInput" type="week" /></label>
       </div>
-      <div style="margin-top:9px;font-size:13px">朝礼：良い ${4-bads.length} / 改善 ${bads.length}</div>
-      ${bads.length?`<div style="margin-top:7px;font-size:13px"><strong>改善：</strong>${bads.map(([k])=>templates.checks[k]?.label||k).join('・')}</div>`:''}
-      <div style="margin-top:7px;font-size:13px"><strong>今日：</strong>${escapeHtml(r.today)}</div>`;
-    area.appendChild(row);
-  });
-}
-document.getElementById('refreshDash').addEventListener('click',renderDashboard);
+      <div id="ideaList" class="idea-list"></div>
+    </section>
 
-function renderHistory(){
-  const records=getRecords().slice().sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
-  const area=document.getElementById('historyList');area.innerHTML='';
-  if(!records.length){area.innerHTML='<div class="empty">履歴はまだありません。</div>';return}
-  records.forEach(r=>{
-    const bads=Object.entries(r.checks).filter(([k,v])=>v.rating==='悪い');
-    const row=document.createElement('div');row.className='history-row';
-    row.innerHTML=`
-      <div class="rowtop">
-        <div><div class="strong">${escapeHtml(r.date)}　${escapeHtml(r.store)}</div><div class="small">${escapeHtml(r.manager)}</div></div>
-        <span class="badge ${bads.length?'bad':'good'}">${bads.length?'改善 '+bads.length:'良好'}</span>
+    <section id="monthly" class="view">
+      <div class="toolbar">
+        <label>対象月 <input id="monthInput" type="month" /></label>
+        <label>店舗 <select id="monthStoreSelect"></select></label>
       </div>
-      <div style="margin-top:8px;font-size:13px"><strong>顧客動態：</strong>${escapeHtml(r.hypothesis)}</div>
-      <div style="margin-top:6px;font-size:13px"><strong>本日の行動：</strong>${escapeHtml(r.today)}</div>
-      <div class="actions"><button class="danger" data-delete="${r.id}">削除</button></div>`;
-    area.appendChild(row);
-  });
-  area.querySelectorAll('[data-delete]').forEach(btn=>btn.addEventListener('click',()=>{
-    const id=Number(btn.dataset.delete);
-    setRecords(getRecords().filter(r=>r.id!==id));
-    renderHistory();renderDashboard();
-  }));
-}
+      <div class="cards" id="monthCards"></div>
+      <div class="panel form-panel">
+        <div class="form-grid two">
+          <label>今月良かった部分<textarea id="monthGood" rows="4"></textarea></label>
+          <label>今月の課題<textarea id="monthIssue" rows="4"></textarea></label>
+          <label>これから育成する部分<textarea id="monthTraining" rows="4"></textarea></label>
+          <label>実績総括<textarea id="monthResult" rows="4"></textarea></label>
+          <label>来月コミット<textarea id="monthCommit" rows="4"></textarea></label>
+          <label>全店横展開したいアイデア<textarea id="monthIdea" rows="4"></textarea></label>
+        </div>
+        <div class="checklist">
+          <label><input id="m1" type="checkbox" /> 計画実績を達成できた</label>
+          <label><input id="m2" type="checkbox" /> 先月課題を改善できた</label>
+          <label><input id="m3" type="checkbox" /> 個人フォーカスができた</label>
+          <label><input id="m4" type="checkbox" /> プロセスフォーカスができた</label>
+          <label><input id="m5" type="checkbox" /> 先週行動→今週行動がつながった</label>
+          <label><input id="m6" type="checkbox" /> 店長・リーダーが自力でOODAを回せた</label>
+        </div>
+        <button id="saveMonthBtn" class="btn primary">月次振り返り保存</button>
+        <div id="monthMessage" class="message" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
 
-function renderTemplateList(){
-  const area=document.getElementById('templateList');area.innerHTML='';
-  const groups=[
-    ['顧客動態の仮説','hypothesis'],
-    ['前日の行動','previous'],
-    ['本日の行動指針','today']
-  ];
-  groups.forEach(([title,key])=>{
-    const wrap=document.createElement('div');wrap.style.marginBottom='15px';
-    wrap.innerHTML=`<div class="strong">${title}</div><div class="template-list" id="list-${key}"></div>`;
-    area.appendChild(wrap);
-    const box=wrap.querySelector('#list-'+key);
-    templates[key].forEach((t,i)=>box.appendChild(templateItem(t,()=>{templates[key].splice(i,1);saveTemplateRefresh()})));
-  });
-  Object.entries(templates.checks).forEach(([key,d])=>{
-    ['good','bad'].forEach(kind=>{
-      const wrap=document.createElement('div');wrap.style.marginBottom='15px';
-      wrap.innerHTML=`<div class="strong">${d.label}・${kind==='good'?'良い':'悪い'}</div><div class="template-list"></div>`;
-      area.appendChild(wrap);
-      const box=wrap.querySelector('.template-list');
-      d[kind].forEach((t,i)=>box.appendChild(templateItem(t,()=>{templates.checks[key][kind].splice(i,1);saveTemplateRefresh()})));
-    });
-  });
-}
-function templateItem(text,onDelete){
-  const div=document.createElement('div');div.className='template-item';
-  const span=document.createElement('span');span.textContent=text;
-  const b=document.createElement('button');b.className='x';b.type='button';b.textContent='×';b.title='削除';b.addEventListener('click',onDelete);
-  div.append(span,b);return div;
-}
-function saveTemplateRefresh(){
-  setTemplates(templates);renderChecks();renderActionTemplates();renderTemplateList();updateProgress();
-}
-
-document.getElementById('addTemplate').addEventListener('click',()=>{
-  const target=document.getElementById('templateTarget').value;
-  const text=document.getElementById('templateText').value.trim();
-  if(!text){document.getElementById('templateMessage').textContent='追加する文章を入力してください。';return}
-  if(['hypothesis','previous','today'].includes(target)) templates[target].push(text);
-  else{
-    const [key,kind]=target.split('.');
-    templates.checks[key][kind].push(text);
-  }
-  setTemplates(templates);
-  document.getElementById('templateText').value='';
-  document.getElementById('templateMessage').textContent='追加しました。';
-  renderChecks();renderActionTemplates();renderTemplateList();updateProgress();
-});
-document.getElementById('resetTemplates').addEventListener('click',()=>{
-  templates=clone(DEFAULT_TEMPLATES);setTemplates(templates);
-  renderChecks();renderActionTemplates();renderTemplateList();updateProgress();
-  document.getElementById('templateMessage').textContent='初期テンプレートに戻しました。';
-});
-
-document.getElementById('exportBtn').addEventListener('click',()=>{
-  const blob=new Blob([JSON.stringify({records:getRecords(),templates:getTemplates()},null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='morning-manager-backup.json';a.click();
-  setTimeout(()=>URL.revokeObjectURL(url),500);
-});
-
-function escapeHtml(s){
-  return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-}
-
-renderDashboard();renderHistory();renderTemplateList();
-</script>
+  <script src="app.js"></script>
 </body>
 </html>

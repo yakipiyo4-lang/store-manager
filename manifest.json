@@ -1,0 +1,8 @@
+{
+  "name":"首都城南エリア OODA育成ボード",
+  "short_name":"城南OODA",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#f4f6f8",
+  "theme_color":"#111827"
+}
